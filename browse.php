@@ -21,6 +21,7 @@ if(isset($_GET['logout'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Theses Library</title>
     <link rel="stylesheet" href="newstyle.css" type="text/css">
+    <link rel="icon" type="image/x-icon" href="favicon.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
@@ -53,6 +54,7 @@ if(isset($_GET['logout'])){
 <div class="content">
     <div class="row">
         <div class="column middle">
+        <br>
             <h2>Advanced Search</h2>
             <div class="browse-container">
                 <div class="main">
@@ -141,7 +143,7 @@ if(isset($_GET['logout'])){
                                             $course = mysqli_real_escape_string($con, $_GET['course']);
                                             $query .= " AND course = '$course'";
                                         }
-
+                                        
                                         $query_run = mysqli_query($con, $query);
 
                                         if ($query_run) {
@@ -158,10 +160,6 @@ if(isset($_GET['logout'])){
                                                         <td><a href='uploads/<?= htmlspecialchars($row['content']) ?>' class="btn btn-primary btn-sm">View</a></td>
                                                         <td>
                                                             <a href="thesis-view.php?id=<?= htmlspecialchars($row['id']); ?>" class="btn btn-info btn-sm">Details</a>
-                                                            <a href="thesis-edit.php?id=<?= htmlspecialchars($row['id']); ?>" class="btn btn-success btn-sm">Edit</a>
-                                                            <form action="code.php" method="post" class="d-inline">
-                                                                <button type="submit" name="delete_thesis" value="<?= htmlspecialchars($row['id']); ?>" class="btn btn-danger btn-sm">Delete</button>
-                                                            </form>
                                                         </td>
                                                     </tr>
                                                     <?php

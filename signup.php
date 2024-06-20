@@ -50,7 +50,7 @@ if(isset($_POST['submit'])){
 <body>
 <nav class="navbar navbar-expand-lg fixed-top">
   <div class="container">
-    <a class="navbar-brand me-auto" href="#">ThesisArc</a>
+    <a class="navbar-brand me-auto" href="index.php">ThesisArc</a>
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasNavbarLabel">ThesisArc</h5>

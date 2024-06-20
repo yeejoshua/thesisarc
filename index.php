@@ -21,6 +21,7 @@ if(isset($_GET['logout'])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ThesisArc</title>
+    <link rel="icon" type="image/x-icon" href="favicon.png">
     <link rel="stylesheet" href="newstyle.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
@@ -64,6 +65,7 @@ if(isset($_GET['logout'])){
   </div> -->
   
   <div class="column middle">
+    <br>
     <h2>Browse Research and Scholarship</h2>
         <section class="index-category">
         <a href="theses.php" class="index-category-box">

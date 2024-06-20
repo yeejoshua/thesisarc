@@ -15,6 +15,7 @@ require 'config.php';
     <link rel="stylesheet" href="newstyle.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Thesis Edit</title>
+    <link rel="icon" type="image/x-icon" href="favicon.png">
     
 </head>
 <body>
@@ -35,13 +36,20 @@ require 'config.php';
           <li class="nav-item">
             <a class="nav-link mx-lg-2" href="browseadmin.php">Browse</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link mx-lg-2" href="addthesis.php">Manage</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="adminpanel.php">Admin</a>
-          </li>
+          <div class="dropdown mt-0">
+          <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Admin
+          </a>
+          <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="addthesis.php">Add Thesis</a></li>
+      <li><a class="dropdown-item" href="addfaculty.php">Add Faculty Work</a></li>
+      <li><a class="dropdown-item" href="addcollection.php">Add Special Collection</a></li>
+      <li><a class="dropdown-item" href="adminpanel.php">Users</a></li>
+    </ul>
+        </li>
         </ul>
+      </div>
       </div>
     </div>
     <a href="logout.php" class="login-button">Logout</a>
@@ -58,74 +66,63 @@ require 'config.php';
         <?php include('message.php'); ?>
 
         <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Thesis Edit 
-                            <a href="browseadmin.php" class="btn btn-danger float-end">BACK</a>
-                        </h4>
+        <div class="card">
+    <div class="card-header border-0">
+        <h4 class="card-title">Edit Thesis</h4>
+    </div>
+    <div class="card-body">
+        <?php
+        if(isset($_GET['id'])) {
+            $theses_id = mysqli_real_escape_string($con, $_GET['id']);
+            $query = "SELECT * FROM theses WHERE id='$theses_id'";
+            $query_run = mysqli_query($con, $query);
+
+            if(mysqli_num_rows($query_run) > 0) {
+                $theses = mysqli_fetch_array($query_run);
+                ?>
+                <form action="code.php" method="POST">
+                    <input type="hidden" name="id" value="<?= $theses['id']; ?>">
+
+                    <div class="mb-3">
+                        <label>Title</label>
+                        <input type="text" name="title" value="<?=$theses['title'];?>" class="form-control">
                     </div>
-                    <div class="card-body">
-
-                        <?php
-                        if(isset($_GET['id']))
-                        {
-                            $theses_id = mysqli_real_escape_string($con, $_GET['id']);
-                            $query = "SELECT * FROM theses WHERE id='$theses_id'";
-                            $query_run = mysqli_query($con, $query);
-
-                            if(mysqli_num_rows($query_run) > 0)
-                            {
-                                $theses = mysqli_fetch_array($query_run);
-                                ?>
-                                <form action="code.php" method="POST">
-                                    <input type="hidden" name="id" value="<?= $theses['id']; ?>">
-
-                                    <div class="mb-3">
-                                        <label>Title</label>
-                                        <input type="text" name="title" value="<?=$theses['title'];?>" class="form-control">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label>Researcher/s</label>
-                                        <input type="text" name="author" value="<?=$theses['author'];?>" class="form-control">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label>College</label>
-                                        <input type="text" name="college" value="<?=$theses['college'];?>" class="form-control">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label>Course</label>
-                                        <input type="text" name="course" value="<?=$theses['course'];?>" class="form-control">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label>Abstract</label>
-                                        <input type="textarea" name="abstract" value="<?=$theses['abstract'];?>" class="form-control">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label>Adviser</label>
-                                        <input type="text" name="adviser" value="<?=$theses['adviser'];?>" class="form-control">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label>Date</label>
-                                        <input type="date" name="date" value="<?=$theses['date'];?>" class="form-control">
-                                    </div>
-                                        <button type="submit" name="update_thesis" class="btn btn-primary">
-                                            Update Thesis
-                                        </button>
-                                    </div>
-
-                                </form>
-                                <?php
-                            }
-                            else
-                            {
-                                echo "<h4>No Such Id Found</h4>";
-                            }
-                        }
-                        ?>
+                    <div class="mb-3">
+                        <label>Researcher/s</label>
+                        <input type="text" name="author" value="<?=$theses['author'];?>" class="form-control">
                     </div>
-                </div>
-            </div>
+                    <div class="mb-3">
+                        <label>Adviser</label>
+                        <input type="text" name="adviser" value="<?=$theses['adviser'];?>" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label>College</label>
+                        <input type="text" name="college" value="<?=$theses['college'];?>" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label>Course</label>
+                        <input type="text" name="course" value="<?=$theses['course'];?>" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label>Abstract</label>
+                        <textarea name="abstract" class="form-control"><?=$theses['abstract'];?></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label>Date</label>
+                        <input type="date" name="date" value="<?=$theses['date'];?>" class="form-control">
+                    </div>
+                    <button type="submit" name="update_thesis" class="btn btn-primary">
+                        Update Thesis
+                    </button>
+                </form>
+                <?php
+            } else {
+                echo "<h4>No Such Id Found</h4>";
+            }
+        }
+        ?>
+    </div>
+</div>
         </div>
     </div>
     </div>

@@ -19,6 +19,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ThesisArc</title>
     <link rel="stylesheet" href="newstyle.css">
+    <link rel="icon" type="image/x-icon" href="favicon.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
@@ -39,15 +40,18 @@
           <li class="nav-item">
             <a class="nav-link mx-lg-2" href="browseadmin.php">Browse</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link mx-lg-2" href="addthesis.php">Manage</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link mx-lg-2" href="adminpanel.php">Admin</a>
-          </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link mx-lg-2" href="auditlog.php">Audit log</a>
-          </li> -->
+          <div class="dropdown mt-0">
+          <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Admin
+          </a>
+          <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="addthesis.php">Add Thesis</a></li>
+      <li><a class="dropdown-item" href="addfaculty.php">Add Faculty Work</a></li>
+      <li><a class="dropdown-item" href="addcollection.php">Add Special Collection</a></li>
+      <li><a class="dropdown-item" href="adminpanel.php">Users</a></li>
+    </ul>
+        </li>
         </ul>
       </div>
     </div>
@@ -70,6 +74,7 @@
   </div> -->
   
   <div class="column middle">
+    <br>
     <h2>Browse Research and Scholarship</h2>
         <section class="index-category">
         <a href="thesesadmin.php" class="index-category-box">
@@ -81,10 +86,10 @@
         <a href="archivaladmin.php"class="index-category-box">
         <h3>Archival and Special Collections</h3>
         </a>
-        <a href="collections.php"class="index-category-box">
+        <a href="collectionsadmin.php"class="index-category-box">
         <h3>All Collections</h3>
         </a>
-        <a href="guides.php"class="index-category-box">
+        <a href="guidesadmin.php"class="index-category-box">
         <h3>Research Guides</h3>
         </a>
         </section>

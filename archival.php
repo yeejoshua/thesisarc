@@ -1,23 +1,25 @@
-<?php 
-    include 'config.php';
-    session_start(); 
-    $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
-    $role = isset($_SESSION['role']) ? $_SESSION['role'] : null;
+<?php
 
-    // Redirect to login page if role is not set
-    if(!isset($role)){
-        header('location:login.php');
-        exit;
-    }
-    
+include 'config.php';
+session_start();
+$user_role = $_SESSION['role'];
 
-    $sql = "SELECT * FROM collection";
-    $result = mysqli_query($conn, $sql);
+if(!isset($user_role)){
+   header('location:login.php');
+};
 
-    // Check for query execution and result
-    if (!$result) {
-        die('Error fetching data: ' . mysqli_error($conn));
-    }
+if(isset($_GET['logout'])){
+   unset($user_id);
+   session_destroy();
+   header('location:login.php');
+}
+$sql = "SELECT * FROM collection";
+$result = mysqli_query($conn, $sql);
+
+// Check for query execution and result
+if (!$result) {
+    die('Error fetching data: ' . mysqli_error($conn));
+}
 ?>
 
 <!DOCTYPE html>
@@ -53,36 +55,24 @@
 </head>
 <body>
 <div class="banner">
-<nav class="navbar navbar-expand-lg fixed-top">
+    <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
             <a class="navbar-brand me-auto" href="indexadmin.php">ThesisArc</a>
             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">ThesisArc</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">ThesisArc</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
+                <li class="nav-item">
+            <a class="nav-link mx-lg-2" href="index.php">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="browse.php">Browse</a>
+          </li>
+                </ul>
             </div>
-            <div class="offcanvas-body">
-        <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="indexadmin.php">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link mx-lg-2" href="browseadmin.php">Browse</a>
-          </li>
-          <div class="dropdown mt-0">
-          <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Admin
-          </a>
-          <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="addthesis.php">Add Thesis</a></li>
-      <li><a class="dropdown-item" href="addfaculty.php">Add Faculty Work</a></li>
-      <li><a class="dropdown-item" href="addcollection.php">Add Special Collection</a></li>
-      <li><a class="dropdown-item" href="adminpanel.php">Users</a></li>
-    </ul>
-        </li>
-        </ul>
-      </div>
             </div>
             <a href="logout.php" class="login-button">Logout</a>
             <button class="navbar-toggler pe-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
@@ -90,12 +80,12 @@
             </button>
         </div>
     </nav>  
-    
     <div class="content">
         <div class="row">
             <div class="column middle">
                 <div class="w3-row w3-padding-64">
                     <div class="w3-twothird w3-container">
+                        <!-- Content Goes Here -->
                         <h3>Archival and Special Collections</h3>
                         <section class="index-category">
                             <?php
@@ -124,11 +114,11 @@
                             ?>
                         </section>
                     </div>
+                    
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

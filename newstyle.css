@@ -183,6 +183,14 @@
 .hero-section h1{
     font-size: 1.2em;
 }
+.abstract-text {
+  white-space: pre-line; /* Preserve line breaks */
+  overflow-wrap: break-word; /* Wrap long words */
+  word-wrap: break-word; /* Wrap long words for older browsers */
+  max-height: 300px; /* Adjust height as needed */
+  overflow-y: auto; /* Add scroll bar if content exceeds max height */
+}
+
 
 /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other
 @media screen and (max-width: 800px) {

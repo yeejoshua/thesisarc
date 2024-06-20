@@ -1,23 +1,16 @@
 <?php 
     include 'config.php';
     session_start(); 
-    $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
-    $role = isset($_SESSION['role']) ? $_SESSION['role'] : null;
+    $user_id = $_SESSION['user_id'];
+    $role = $_SESSION['role'];
 
-    // Redirect to login page if role is not set
     if(!isset($role)){
         header('location:login.php');
-        exit;
-    }
+    };
     
-    // Fetch faculty works from database
-    $sql = "SELECT * FROM faculty";
-    $result = mysqli_query($conn, $sql);
-
-    // Check for query execution and result
-    if (!$result) {
-        die('Error fetching data: ' . mysqli_error($conn));
-    }
+    // if(!isset($user_id)){
+    //     header('location:index.php');
+    // }
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +21,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Theses Library</title>
     <link rel="stylesheet" href="newstyle.css">
-    <link rel="icon" type="image/x-icon" href="favicon.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         /* Custom CSS for Content Section */
@@ -62,20 +54,11 @@
         .content ul li a:hover {
             color: #0056b3; /* Darker blue on hover */
         }
-        .plain-link {
-    background-color: transparent;
-    border: none;
-    color: inherit; /* Inherit color from parent elements */
-    text-decoration: none; /* Remove underline */
-    padding: 0; /* Remove padding */
-    cursor: pointer; /* Optional: change cursor to pointer to indicate it's clickable */
-}
-
     </style>
 </head>
 <body>
 <div class="banner">
-<nav class="navbar navbar-expand-lg fixed-top">
+    <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
             <a class="navbar-brand me-auto" href="indexadmin.php">ThesisArc</a>
             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
@@ -112,45 +95,24 @@
             </button>
         </div>
     </nav>  
-    
     <div class="content">
         <div class="row">
             <div class="column middle">
                 <div class="w3-row w3-padding-64">
                     <div class="w3-twothird w3-container">
-                        <h3>Faculty Research and Creative Works</h3>
-                        <section class="index-category">
-                            <?php
-                                // Check if there are results
-                                if (mysqli_num_rows($result) > 0) {
-                                    // Output table header
-                                    echo "<table class='table'>";
-                                    echo "<thead><tr><th>Title</th><th>Author</th><th>Department/Unit</th><th>Date</th><th>File</th></tr></thead>";
-                                    echo "<tbody>";
-                                    // Output data of each row
-                                    while($row = mysqli_fetch_assoc($result)) {
-                                        // Display faculty work information in table rows
-                                        echo "<tr>";
-                                        echo "<td>" . htmlspecialchars($row["title"]) . "</td>";
-                                        echo "<td>" . htmlspecialchars($row["author"]) . "</td>";
-                                        echo "<td>" . htmlspecialchars($row["college"]) . "</td>";
-                                        echo "<td>" . htmlspecialchars($row["date"]) . "</td>";
-                                        echo "<td><a href='uploads/" . htmlspecialchars($row['content']) . "' class='plain-link'>View</a></td>";
-
-                                        echo "</tr>";
-                                    }
-                                    echo "</tbody></table>";
-                                } else {
-                                    echo "<p>No faculty work found.</p>";
-                                }
-                            ?>
-                        </section>
+                    <h2>Research Guides</h2>
+    <p>Here are some research guides to help you navigate through our collection:</p>
+    <ul>
+        <li><a href="#">Guide to Writing a Thesis</a></li>
+        <li><a href="#">Research Methodologies</a></li>
+        <li><a href="#">Citation Styles</a></li>
+        <!-- Add more guides as needed -->
+    </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

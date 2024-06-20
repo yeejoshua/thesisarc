@@ -22,7 +22,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ThesisArc</title>
+    <title>ThesisArc - Information Technology</title>
+    <link rel="icon" type="image/x-icon" href="favicon.png">
     <link rel="stylesheet" href="newstyle.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
@@ -43,9 +44,6 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link mx-lg-2" href="browse.php">Browse</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link mx-lg-2"  href="advancedsearch.php">Advanced Search</a>
                             </li>
                         </ul>
                     </div>
@@ -77,7 +75,9 @@
                             // Output data of each row
                             while($row = $result->fetch_assoc()) {
                                 // Display thesis information in table rows
-                                echo "<tr><td>" . $row["title"] . "</td><td>" . $row["author"] . "</td><td>" . $row["adviser"] . "</td><td>" . $row["college"] . "</td><td>" . $row["course"] . "</td><td>" . $row["date"] . "</td><td><a href='uploads/" . htmlspecialchars($row['content']) . " class='btn btn-primary btn-sm'>View</a></td><td><a href='thesis-view.php?id=" . htmlspecialchars($row['id']) . " class='btn btn-info btn-sm'>Details</a></td></tr>";
+                                echo "<tr><td>" . $row["title"] . "</td><td>" . $row["author"] . "</td><td>" . $row["adviser"] . "</td><td>" . $row["college"] . "</td><td>" . $row["course"] . "</td><td>" . $row["date"] . "</td><td><a href='uploads/" . htmlspecialchars($row['content']) . "' class='btn btn-outline-primary btn-sm'>View</a></td><td><a href='thesis-view.php?id=" . htmlspecialchars($row['id']) . "' class='btn btn-outline-info btn-sm'>Details</a></td></tr>";
+
+
                             }
                             echo "</tbody></table>";
                         } else {

@@ -1,20 +1,12 @@
-<?php
-include 'config.php';
-session_start();
-$user_role = $_SESSION['role'];
+<?php 
+    include 'config.php';
+    session_start(); 
 
-if (!isset($user_role)) {
-    header('location:login.php');
-    exit();
-}
-
-if (isset($_GET['logout'])) {
-    session_destroy();
-    header('location:login.php');
-    exit();
-}
-
-// Fetch faculty works from database
+    if(!isset($_SESSION['user_id']) || !isset($_SESSION['role'])){
+        header('location:login.php');
+        exit();
+    }
+  // Fetch faculty works from database
 $sql_faculty = "SELECT * FROM faculty";
 $result_faculty = mysqli_query($conn, $sql_faculty);
 
@@ -30,7 +22,9 @@ $result_collection = mysqli_query($conn, $sql_collection);
 // Check for query execution and result
 if (!$result_collection) {
     die('Error fetching collection data: ' . mysqli_error($conn));
-}
+}  
+    $user_id = $_SESSION['user_id'];
+    $role = $_SESSION['role'];
 ?>
 
 <!DOCTYPE html>
@@ -87,14 +81,14 @@ if (!$result_collection) {
             font-size: 15px;
         }
         .collapsible:after {
-            content: '\02795'; /* Unicode character for "plus" sign (+) */
-            font-size: 13px;
-            color: white;
-            float: right;
-            margin-left: 5px;
+        content: '\02795'; /* Unicode character for "plus" sign (+) */
+        font-size: 13px;
+        color: white;
+        float: right;
+        margin-left: 5px;
         }
         .collapsible.active:after {
-            content: "\2796"; /* Unicode character for "minus" sign (-) */
+        content: "\2796"; /* Unicode character for "minus" sign (-) */
         }
 
         .active, .collapsible:hover {
@@ -107,14 +101,6 @@ if (!$result_collection) {
             overflow: hidden;
             background-color: #f1f1f1;
         }
-
-        /* Custom CSS for active navigation link */
-        .nav-link.active {
-            color: #dc3545; /* Red color for active link */
-            background-color: transparent; /* Ensure background is transparent */
-        }
-
-
         .file-preview {
             width: 20%;
             height: auto;
@@ -126,15 +112,11 @@ if (!$result_collection) {
             display: block;
             margin: auto; /* Center align the image */
         }
-        .plain-link {
-    background-color: transparent;
-    border: none;
-    color: inherit; /* Inherit color from parent elements */
-    text-decoration: none; /* Remove underline */
-    padding: 0; /* Remove padding */
-    cursor: pointer; /* Optional: change cursor to pointer to indicate it's clickable */
-}
-
+        /* Custom CSS for active navigation link */
+        .nav-link.active {
+            color: #dc3545; /* Red color for active link */
+            background-color: transparent; /* Ensure background is transparent */
+        }
     </style>
 </head>
 <body>
@@ -143,22 +125,34 @@ if (!$result_collection) {
         <div class="container">
             <a class="navbar-brand me-auto" href="indexadmin.php">ThesisArc</a>
             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">ThesisArc</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
-                        <li class="nav-item">
-                            <a class="nav-link mx-lg-2" href="index.php">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="browse.php">Browse</a>
-                        </li>
-                    </ul>
-                </div>
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">ThesisArc</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
-            <a href="?logout" class="login-button">Logout</a>
+            <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="indexadmin.php">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link mx-lg-2" href="browseadmin.php">Browse</a>
+          </li>
+          <div class="dropdown mt-0">
+          <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Admin
+          </a>
+          <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="addthesis.php">Add Thesis</a></li>
+      <li><a class="dropdown-item" href="addfaculty.php">Add Faculty Work</a></li>
+      <li><a class="dropdown-item" href="addcollection.php">Add Special Collection</a></li>
+      <li><a class="dropdown-item" href="adminpanel.php">Users</a></li>
+    </ul>
+        </li>
+        </ul>
+      </div>
+            </div>
+            <a href="logout.php" class="login-button">Logout</a>
             <button class="navbar-toggler pe-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -207,7 +201,7 @@ if (!$result_collection) {
                                 <?php
                                 if (isset($result_faculty) && mysqli_num_rows($result_faculty) > 0) {
                                     echo "<table class='table'>";
-                                    echo "<thead><tr><th>Title</th><th>Author</th><th>Department/Unit</th><th>Date</th><th>File</th></tr></thead>";
+                                    echo "<thead><tr><th>Title</th><th>Author</th><th>Department/Unit</th><th>Date</th> </tr></thead>";
                                     echo "<tbody>";
                                     while ($row = mysqli_fetch_assoc($result_faculty)) {
                                         echo "<tr>";
@@ -215,7 +209,7 @@ if (!$result_collection) {
                                         echo "<td>" . htmlspecialchars($row["author"]) . "</td>";
                                         echo "<td>" . htmlspecialchars($row["college"]) . "</td>";
                                         echo "<td>" . htmlspecialchars($row["date"]) . "</td>";
-                                        echo "<td><a href='uploads/" . htmlspecialchars($row['content']) . "' class='plain-link'>View</a></td>";
+                                        
 
                                         echo "</tr>";
                                     }
@@ -273,6 +267,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

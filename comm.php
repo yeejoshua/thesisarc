@@ -24,6 +24,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ThesisArc</title>
     <link rel="stylesheet" href="newstyle.css">
+    <link rel="icon" type="image/x-icon" href="favicon.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
@@ -44,9 +45,7 @@
                             <li class="nav-item">
                                 <a class="nav-link mx-lg-2" href="browse.php">Browse</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link mx-lg-2"  href="advancedsearch.php">Advanced Search</a>
-                            </li>
+
                         </ul>
                     </div>
                 </div>

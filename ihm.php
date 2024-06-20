@@ -44,9 +44,6 @@
                             <li class="nav-item">
                                 <a class="nav-link mx-lg-2" href="browse.php">Browse</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link mx-lg-2"  href="advancedsearch.php">Advanced Search</a>
-                            </li>
                         </ul>
                     </div>
                 </div>
